@@ -1,0 +1,49 @@
+.bounds {
+    max-width: 1000px;
+}
+
+.mineral__container {
+    display: flex;
+}
+
+.mineral__image-bg {
+    width: 400px;
+    margin-bottom: 98px;
+}
+
+.mineral__table-container {
+    overflow: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #e0e3e2 white;
+    max-height: 550px;
+    flex: 1;
+}
+
+td {
+    padding: 15px 10px 40px 0;
+    vertical-align: top;
+}
+
+.mineral__table td{
+    border-color: #F4F4F4;
+}
+
+.mineral__category {
+    color: darkgrey;
+    width: 30%
+}
+
+
+@media only screen and (max-width: 950px)  {
+    .mineral__container {
+        display: block;
+    }
+    .mineral__image-bg {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .mineral__table-container {
+        max-height: 100%;
+    }
+
+}
