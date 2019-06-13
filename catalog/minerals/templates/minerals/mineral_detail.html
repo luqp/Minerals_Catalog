@@ -3,14 +3,19 @@
 {% load static from staticfiles %}
 
 {% block title %}{{ block.super }} {{ mineral }}{% endblock %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="grid-100 mineral__container">
-    <h1 class="mineral__name">{{ mineral.name }}</h1>
-    <div class="mineral__image-bg">
-        <img class="mineral__image" src="{% static 'data/images/' %}{{ mineral.image_filename }}">
-        <p class="mineral__caption">{{ mineral.image_caption }}</p>
-    </div>
+    <section>
+        <h1 class="mineral__name">{{ mineral.name }}</h1>
+        <div class="mineral__image-bg">
+            <img class="mineral__image" src="{% static 'data/images/' %}{{ mineral.image_filename }}">
+            <p class="mineral__caption">{{ mineral.image_caption }}</p>
+        </div>
+    </section>
     <div class="mineral__table-container">
         <table class="mineral__table">
         {% for field, value in mineral_fields %}
