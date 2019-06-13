@@ -1,0 +1,62 @@
+body {
+    background-color: #384033;
+}
+
+p {
+    color: #b2cab8
+}
+
+svg.logo {
+    fill: #b2cab8;
+}
+
+h1.logo__name {
+    color: white;
+}
+
+div.option__home {
+    background-color: white;
+    border-radius: 5px;
+    padding: 16px 250px;
+}
+
+a.minerals_option {
+    border: solid 2px #b2d8b5;
+    border-radius: 100px;
+    color: #384033;
+    display: block;
+    font-size: 13px;
+    text-align: center;
+    padding: 8px 0 7px 0;
+    width: 100%;
+    transition: background-color 200ms ease-in-out, font-weight 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+    a.minerals_option:hover {
+        background-color: #E4F9E9;
+        border: solid 2px #E4F9E9;
+        color: #384033;
+        font-weight: bold;
+    }
+
+div.random__option {
+    background-color: #406b44;
+    box-shadow: 0 0 100px 50px #000;
+    color: #fff;
+    padding: 20px 0 20px 0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.random__option .minerals_option {
+    display: inline;
+    color: #fff;
+    padding: 6px 24px 5px 24px;
+}
+
+    .random__option .minerals_option:hover{
+        color: #384033;
+        box-shadow: 0 6 10px 50px #384033;
+    }
