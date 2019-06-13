@@ -23,12 +23,12 @@ pip3 install -r requirements.txt
 ```
 
 ## Run app
-To run the app you need to enter in catalog folder and run the server like following:
+To run the application you need to enter the catalog folder and run the server as follows:
 ```
 (env) ...\Minerals_Catalog> cd .\catalog\
 (env) ...\Minerals_Catalog\catalog> python manage.py runserver
 ```
-To see the webpage you have to make `ctrl + click` in `http://127.0.0.1:8000/`this open a new window in your brouser
+To see the webpage you have to make `ctrl + click` in `http://127.0.0.1:8000/`this open a new window in your browser
 ```
 ...
 Django version 2.2.2, using settings 'catalog.settings'
