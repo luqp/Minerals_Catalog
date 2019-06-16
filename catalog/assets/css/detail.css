@@ -12,7 +12,7 @@
 }
 
 .mineral__table-container {
-    overflow: scroll;
+    overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #e0e3e2 white;
     max-height: 550px;
