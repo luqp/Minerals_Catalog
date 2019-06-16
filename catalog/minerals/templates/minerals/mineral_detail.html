@@ -18,11 +18,11 @@
     </section>
     <div class="mineral__table-container">
         <table class="mineral__table">
-        {% for field, value in mineral_fields %}
+        {% for name, value in mineral_fields %}
             {% if value %}
                 <tr>
-                    <td class="mineral__category">{{ field|title|replace_for_spaces:'_' }}</td>
-                    {% if field == 'formula' %}
+                    <td class="mineral__category">{{ name|title|replace_for_spaces:'_' }}</td>
+                    {% if name == 'formula' %}
                     <td class="mineral__formula">{{ value|markdown_to_html }}</td>
                     {% else %}
                     <td>{{ value|markdown_to_html }}</td>
