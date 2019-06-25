@@ -4,7 +4,7 @@ The home page redirect you to a site that contains a list of all of the minerals
 Clicking on a mineral’s name opens a page that displays information about the mineral.
 
 ## To use
-You need create a new virtual Python environment:
+You need create a new Python virtual environment:
 ```
 python3 -m venv env
 ```
@@ -26,6 +26,7 @@ pip3 install -r requirements.txt
 To run the application you need to enter the catalog folder and run the server as follows:
 ```
 (env) ...\Minerals_Catalog> cd .\catalog\
+(env) ...\Minerals_Catalog\catalog> python manage.py migrate
 (env) ...\Minerals_Catalog\catalog> python manage.py runserver
 ```
 To see the webpage you have to make `ctrl + click` in `http://127.0.0.1:8000/`this open a new window in your browser
