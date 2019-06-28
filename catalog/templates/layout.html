@@ -16,10 +16,18 @@
   {% block static %}{% endblock %}
 </head>
 <body>
+    <nav class="top-bar-right">
+        <a href="{% url 'home' %}">Home</a>
+        <section class="search">
+            <form action="{% url 'minerals:search_all' term='searching' %}" method="GET">
+                <ul class="menu">
+                    <li><input type="search" name="q" class="input__search"></li>
+                    <li><button type="submit" class="button">Search</button></li>
+                </ul>
+            </form>
+        </section>
+    </nav>
     <div class="bounds">
-        <nav>
-            <a href="{% url 'home' %}">Home</a>
-        </nav>
         <div class="grid-100">
             <a href="{% url 'minerals:index' %}">
                 <svg class="logo" viewBox="0 0 127.6 84.8" preserveAspectRation="xMinYMin meet">
@@ -31,7 +39,33 @@
             </a>
             <p class="logo__text text-centered">They're not rocks!</p>
         </div>
+
+        {% block alphabet %}
+        <ul class="grid-100 alphabet">
+            {% include "minerals/macros.html" with field_values="ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+        </ul>
+        {% endblock %}
+    </div>
+    <div class="mineral__list">
+        <div class="grid-20">
+            <section>
+                <h2>Groups</h2>
+                <ul class="py_groups">
+                    {% minerals_groups param='group' as groups %}
+                    {% include "minerals/macros.html" with field_values=groups color=None %}
+                </ul>
+            </section>
+        </div>
         {% block content %}{% endblock %}
+        <div class="grid-20">
+            <section>
+                <h2>Colors</h2>
+                <ul class="py_colors">
+                    {% minerals_colors as colors %}
+                    {% include "minerals/macros.html" with field_values=colors color=True %}
+                </ul>
+            </section>
+        </div>
     </div>
     <div class="minerals__random">
         {% random_number as number %}
