@@ -1,0 +1,23 @@
+{% for field in field_values %}
+    {% if field %}
+    <li>
+        {% if term == field %}
+        <a href="{% url 'minerals:search' term=field %}" class="active">
+            {% if color %}
+                <span title="{{ field }}" style="background-color: {{ field }};"></span>
+            {% else %}
+                {{ field }}
+            {% endif %}
+        </a>
+        {% else %}
+        <a href="{% url 'minerals:search' term=field %}" class="desactive">
+            {% if color %}
+                <span title="{{ field }}" style="background-color: {{ field }};"></span>
+            {% else %}
+                {{ field }}
+            {% endif %}
+        </a>
+        {% endif %}
+    </li>
+    {% endif %}
+{% endfor %}
