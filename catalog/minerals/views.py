@@ -1,30 +1,27 @@
 import random
 
-from django.db import connection
-from django.forms.models import model_to_dict
-from django.shortcuts import render, get_object_or_404
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, reverse
+from django.db.models import Q, Count
 
 from minerals.models import Mineral
 
 
-def obtain_order_fields(star):
+def fields_dataBase(db, star):
     '''
-        Selects all name field from mineral Model 
-        and order them in descendent way to be returned in a list
+        Get fields from a database as a list
     '''
     fields = []
-    query = 'SELECT COUNT("{}") FROM minerals_Mineral '
-    query += 'WHERE "{}" <>""'
-    with connection.cursor() as cursor:
-        for field in Mineral._meta.get_fields()[star:]:
-            count = cursor.execute(
-                    query.format(field.name, field.name)
-                ).fetchone()[0]
-            count_field = (count, field.name)
-            fields.append(count_field)
-
-    fields.sort(reverse = True)
+    for field in db._meta.get_fields()[star:]:
+        count = db.objects.aggregate(
+            field=Count(field.name, only=Q(field.name != "")))
+        count_field = (count['field'], field.name)
+        fields.append(count_field)
+    fields.sort(reverse=True)
     return [field for _, field in fields]
+
+
+names_fields = fields_dataBase(Mineral, 4)
 
 
 def index(request):
@@ -32,7 +29,9 @@ def index(request):
         Render a page with the name of each mineral in the database
     '''
     minerals = Mineral.objects.all()
-    return render(request, 'minerals/index.html', {'minerals': minerals})
+    return HttpResponseRedirect(reverse('minerals:search', kwargs={
+        'term': 'A'
+    }))
 
 
 def mineral_detail(request, pk):
@@ -40,12 +39,41 @@ def mineral_detail(request, pk):
         Converts mineral model's attributes in a list
         and render them
     '''
-    mineral_model = get_object_or_404(Mineral, pk=pk)
-    names_fields = obtain_order_fields(4)
-    dict_fields = model_to_dict(mineral_model)
-    mineral_fields = [(key, dict_fields[key]) for key in names_fields]
-
+    try:
+        mineral_model = Mineral.objects.values().get(pk=pk)
+    except Mineral.DoesNotExist:
+        raise Http404
+    fields = [(key, mineral_model[key]) for key in names_fields]
     return render(request,
                   'minerals/mineral_detail.html',
                   {'mineral': mineral_model,
-                   'mineral_fields': mineral_fields})
+                   'mineral_fields': fields})
+
+
+def search(request, term):
+    if len(term) == 1:
+        minerals = Mineral.objects.filter(name__istartswith=term)
+    else:
+        minerals = Mineral.objects.filter(group__icontains=term)
+        if not len(minerals):
+            minerals = Mineral.objects.filter(color__icontains=term)
+    return render(request, 'minerals/index.html', {
+        'minerals': minerals,
+        'term': term,
+    })
+
+
+def search_in_all(request, term):
+    '''
+        Search in all fields of the database
+    '''
+    term = request.GET.get('q')
+    list_queries = [Q(**{field + "__icontains": term})
+                    for field in names_fields]
+    queries = Q(name__icontains=term)|Q(image_caption__icontains=term)
+    for query in list_queries:
+        queries = queries | query
+    minerals = Mineral.objects.filter(queries)
+    return render(request, 'minerals/index.html', {
+        'minerals': minerals,
+    })
