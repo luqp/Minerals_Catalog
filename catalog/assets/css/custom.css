@@ -1,3 +1,64 @@
+.search .input__search {
+    width: 20rem;
+    height: 2rem;
+}
+.search .button{
+    height: 26px;
+    font-size: 17px;
+    background-color: rgb(63, 104, 100);
+    border: 0;
+    color: #bcffe8;
+    margin-left: 10px;
+}
+
+.bounds {
+    padding: 0;
+}
+
+.mineral__list {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+    .mineral__list .grid-20{
+        padding: 0px;
+        max-width: 260px;
+    }
+    .mineral__list .grid-20 section {
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.466);
+    }
+    .mineral__list .grid-20 section li {
+        list-style: none;
+    }
+    .mineral__list .py_groups {
+        margin-left: 30px;
+    }
+    .mineral__list .py_colors {
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .mineral__list .py_colors li {
+        margin: 16px 2px;
+    }
+    .mineral__list .py_colors span {
+        padding:12px 20px;
+        border-radius: 50%;
+        border: 3px solid white;
+    }
+    .mineral__list .py_colors span:hover {
+        box-shadow: 0px 3px 6px #bbb;
+    }
+
+div.list__minerals {
+    max-width: 800px;
+}
+.minerals__container{
+    min-height: 400px;
+}
 
 .mineral__image-bg {
     padding: 20px
@@ -7,6 +68,62 @@
     margin: 0 auto 25px auto;
 }
 
+
+
 td p {
     margin-bottom: 0px;
 }
+
+ul.alphabet {
+    display: flex;
+    justify-content: space-between;
+}
+
+    ul.alphabet li {
+        list-style: none;
+    }
+
+    ul.alphabet li:hover {
+        box-shadow: 0 3px 4px rgb(134, 134, 134);
+    }
+
+    a.active {
+        color: rgb(255, 255, 255);
+    }
+
+    .alphabet a.active,
+    .py_groups a.active {
+        padding: 4px 6px;
+        font-weight: bold;
+        background-color: rgb(63, 104, 100);
+        border-radius: 3px;
+        box-shadow: 0 3px 4px rgb(168, 168, 168);
+    }
+
+    .py_colors a.active span {
+        box-shadow: 0 3px 4px rgb(168, 168, 168);
+    }
+
+    a.desactive {
+        color: rgb(162, 183, 181);
+    }
+
+    .alphabet a.desactive {
+        background-color: rgba(255, 255, 255, 0.781);
+        border-radius: 3px;
+        padding: 4px 6px;
+    }
+
+    .top-bar-right {
+        padding: 20px 20px 0px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .top-bar-right .menu {
+            display: flex;
+        }
+
+        .top-bar-right .menu li {
+            list-style: none;
+        }

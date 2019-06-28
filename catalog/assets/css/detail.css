@@ -1,22 +1,17 @@
-.bounds {
-    max-width: 1000px;
+.list__minerals .container__detail {
+    background-color: #fff;
+    border-radius: 6px;
+    list-style: none;
+    padding-bottom: 100px;
+    text-align: center;
 }
-
 .mineral__container {
     display: flex;
 }
 
 .mineral__image-bg {
-    width: 400px;
+    width: auto;
     margin-bottom: 98px;
-}
-
-.mineral__table-container {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: #e0e3e2 white;
-    max-height: 550px;
-    flex: 1;
 }
 
 td {
@@ -39,7 +34,6 @@ td {
         display: block;
     }
     .mineral__image-bg {
-        width: 100%;
         margin-bottom: 0;
     }
     .mineral__table-container {
