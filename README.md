@@ -40,5 +40,5 @@ Quit the server with CTRL-BREAK.
 # Catalog
 This project contains 874 items with one image each.
 <p align="center">
-  <img src="https://github.com/windyludev/Minerals_Catalog/blob/master/catalog/assets/img/list-preview.png">
+  <img src="https://github.com/windyludev/Minerals_Catalog/blob/master/catalog/assets/img/minerals_list.png">
 </p>
