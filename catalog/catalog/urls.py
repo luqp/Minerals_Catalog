@@ -19,8 +19,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views
 
+import debug_toolbar
 
 urlpatterns = [
+    path('__debug__/', include(debug_toolbar.urls)),
     path('minerals/', include('minerals.urls', namespace='minerals')),
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
