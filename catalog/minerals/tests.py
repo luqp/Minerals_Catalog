@@ -56,3 +56,8 @@ class MineralViewsTests(TestCase):
                                         kwargs={'pk': self.mineral.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(self.mineral, resp.context['mineral'])
+
+    def test_search_result(self):
+        resp = self.client.get(reverse('minerals:search',
+                                        kwargs={'term': self.mineral.name}))
+        self.assertEqual(resp.status_code, 200)
