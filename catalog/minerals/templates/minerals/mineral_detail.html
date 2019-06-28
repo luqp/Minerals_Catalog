@@ -2,35 +2,38 @@
 {% load mineral_extras %}
 {% load static from staticfiles %}
 
-{% block title %}{{ block.super }} {{ mineral }}{% endblock %}
+{% block title %}{{ block.super }} {{ mineral.name }}{% endblock %}
+
 {% block static %}
 <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="grid-100 mineral__container">
-    <section>
-        <h1 class="mineral__name">{{ mineral.name }}</h1>
-        <div class="mineral__image-bg">
-            <img class="mineral__image" src="{% static 'data/images/' %}{{ mineral.image_filename }}">
-            <p class="mineral__caption">{{ mineral.image_caption }}</p>
+<div class="grid-60 list__minerals">
+    <div class="container__detail">
+        <section>
+            <h1 class="mineral__name">{{ mineral.name }}</h1>
+            <div class="mineral__image-bg">
+                <img class="mineral__image" src="{% static 'data/images/' %}{{ mineral.image_filename }}">
+                <p class="mineral__caption">{{ mineral.image_caption }}</p>
+            </div>
+        </section>
+        <div class="mineral__table-container">
+            <table class="mineral__table">
+            {% for name, value in mineral_fields %}
+                {% if value %}
+                    <tr>
+                        <td class="mineral__category">{{ name|title|replace_for_spaces:'_' }}</td>
+                        {% if name == 'formula' %}
+                        <td class="mineral__formula">{{ value|markdown_to_html }}</td>
+                        {% else %}
+                        <td>{{ value|markdown_to_html }}</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
         </div>
-    </section>
-    <div class="mineral__table-container">
-        <table class="mineral__table">
-        {% for name, value in mineral_fields %}
-            {% if value %}
-                <tr>
-                    <td class="mineral__category">{{ name|title|replace_for_spaces:'_' }}</td>
-                    {% if name == 'formula' %}
-                    <td class="mineral__formula">{{ value|markdown_to_html }}</td>
-                    {% else %}
-                    <td>{{ value|markdown_to_html }}</td>
-                    {% endif %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-        </table>
     </div>
 </div>
 {% endblock %}

@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
+{% load mineral_extras %}
 
 {% block title %}{{ block.super }} A magnificant catalog of minerals{% endblock %}
 
 {% block content %}
-<div class="grid-100">
+<div class="grid-60 list__minerals">
     <ul class="minerals__container">
         {% for mineral in minerals %}
             <li class="minerals__item">
