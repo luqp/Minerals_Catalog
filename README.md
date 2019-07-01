@@ -4,18 +4,7 @@ The home page redirect you to a site that contains a list of all of the minerals
 Clicking on a mineral’s name opens a page that displays information about the mineral.
 
 ## To use
-You need create a new Python virtual environment:
-```
-python3 -m venv env
-```
-### Activate your new virtual Python environment
-```
-source ./env/bin/activate
-```
-If using Windows:
-```
-.\env\Scripts\activate
-```
+* You need create a new Python virtual environment.
 ## Requirements
 This project use some requirements located on requirements.txt file:
 ```
