@@ -44,20 +44,26 @@ class MineralViewsTests(TestCase):
         )
     
     def test_mineral_list_view(self):
-        resp = self.client.get(reverse('minerals:index'))
+        resp = self.client.get(reverse('minerals:search',
+                                        kwargs={'term': 'A'}))
         self.assertEqual(resp.status_code, 200)
-        self.assertIn(self.mineral, resp.context['minerals'])
-        self.assertIn(self.mineral2, resp.context['minerals'])
         self.assertTemplateUsed(resp, 'minerals/index.html')
-        self.assertContains(resp, self.mineral.name)
+        self.assertContains(resp, 'Abelsonite')
 
     def test_mineral_detail_view(self):
         resp = self.client.get(reverse('minerals:detail',
                                         kwargs={'pk': self.mineral.pk}))
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(self.mineral, resp.context['mineral'])
+        self.assertContains(resp, self.mineral.name)
+        self.assertContains(resp, self.mineral.image_caption)
 
     def test_search_result(self):
         resp = self.client.get(reverse('minerals:search',
                                         kwargs={'term': self.mineral.name}))
+        resp2 = self.client.get(reverse('minerals:search',
+                                        kwargs={'term': self.mineral2.group}))
+        resp3 = self.client.get(reverse('minerals:search',
+                                        kwargs={'term': self.mineral2.color}))
         self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp2.status_code, 200)
+        self.assertEqual(resp3.status_code, 200)
