@@ -7,28 +7,26 @@ from django.db.models import Q, Count
 from minerals.models import Mineral
 
 
-def fields_dataBase(db, star):
+def get_popular_fields(request, db, start=4):
     '''
-        Get fields from a database as a list
+        Get the most popular fields from a database as a list
     '''
-    fields = []
-    for field in db._meta.get_fields()[star:]:
-        count = db.objects.aggregate(
-            field=Count(field.name, only=Q(field.name != "")))
-        count_field = (count['field'], field.name)
-        fields.append(count_field)
-    fields.sort(reverse=True)
-    return [field for _, field in fields]
-
-
-names_fields = fields_dataBase(Mineral, 4)
+    if not request.session.get('popular_fields'):
+        fields = []
+        for field in db._meta.get_fields()[start:]:
+            count = db.objects.aggregate(
+                field=Count(field.name, only=Q(field.name != "")))
+            count_field = (count['field'], field.name)
+            fields.append(count_field)
+        fields.sort(reverse=True)
+        request.session['popular_fields'] = [field for _, field in fields]
+    return request.session.get('popular_fields')
 
 
 def index(request):
     ''' 
         Render a page with the name of each mineral in the database
     '''
-    minerals = Mineral.objects.all()
     return HttpResponseRedirect(reverse('minerals:search', kwargs={
         'term': 'A'
     }))
@@ -43,7 +41,8 @@ def mineral_detail(request, pk):
         mineral_model = Mineral.objects.values().get(pk=pk)
     except Mineral.DoesNotExist:
         raise Http404
-    fields = [(key, mineral_model[key]) for key in names_fields]
+    popular_fields = get_popular_fields(request, Mineral)
+    fields = [(key, mineral_model[key]) for key in popular_fields]
     return render(request,
                   'minerals/mineral_detail.html',
                   {'mineral': mineral_model,
@@ -68,8 +67,9 @@ def search_in_all(request, term):
         Search in all fields of the database
     '''
     term = request.GET.get('q')
+    popular_fields = get_popular_fields(request, Mineral)
     list_queries = [Q(**{field + "__icontains": term})
-                    for field in names_fields]
+                    for field in popular_fields]
     queries = Q(name__icontains=term)|Q(image_caption__icontains=term)
     for query in list_queries:
         queries = queries | query
